@@ -1,0 +1,12 @@
+# Google Cloud Service Account Key (機密情報)
+*.json
+!bigquery-admin.json.sample
+
+# AppDaemon キャッシュ・ログ
+compiled/
+namespace/
+__pycache__/
+*.pyc
+
+# ログファイル
+*.log
