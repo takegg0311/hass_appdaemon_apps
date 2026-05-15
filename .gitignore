@@ -1,3 +1,6 @@
+# 環境変数
+.env
+
 # Google Cloud Service Account Key (機密情報)
 *.json
 !bigquery-admin.json.sample

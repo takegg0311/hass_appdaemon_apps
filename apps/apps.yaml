@@ -2,3 +2,6 @@
 hello_world:
   module: hello
   class: HelloWorld
+bigquery_backup:
+  module: hass_to_bigquery
+  class: HassToBigQuery
