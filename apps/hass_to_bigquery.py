@@ -34,23 +34,27 @@ class HassToBigQuery(hass.Hass):
 
     def backup_location(self, entity, attribute, old, new, kwargs):
         try:
-            # 緯度・経度属性を取得
+            # attribute="all" は entity 全体の dict を返す
+            # - state: Geocoded Location の住所文字列
+            # - attributes.location: [latitude, longitude]
             state = self.get_state(entity, attribute="all")
             lat = state['attributes']['location'][0]
             lon = state['attributes']['location'][1]
+            address = state['state']
 
             if lat and lon:
-                self.send_to_bq(entity, lat, lon)
+                self.send_to_bq(entity, lat, lon, address)
         except Exception as e:
             self.error(e)
 
-    def send_to_bq(self, entity_id, lat, lon):
+    def send_to_bq(self, entity_id, lat, lon, address):
         datetime_now = datetime.now(TZ_JST)
         rows_to_insert = [{
             "datetime": datetime_now.replace(tzinfo=None).isoformat(timespec='seconds'), 
             "entity_id": entity_id,
             "latitude": lat,
-            "longitude": lon
+            "longitude": lon,
+            "address": address
         }]
         
         errors = self.client.insert_rows_json(self.table_id, rows_to_insert)
@@ -108,7 +112,9 @@ class HassToBigQuery(hass.Hass):
                             "datetime": ts_jst_naive,
                             "entity_id": state.get("entity_id"),
                             "latitude": location[0],
-                            "longitude": location[1]
+                            "longitude": location[1],
+                            # 履歴でも state が住所文字列
+                            "address": state.get("state"),
                         })
 
             ha_df = pd.DataFrame(ha_records)

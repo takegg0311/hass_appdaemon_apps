@@ -70,6 +70,7 @@ Home Assistant の entity 履歴から位置情報（`attributes.location`）を
 | `entity_id` | Home Assistant の entity ID |
 | `latitude` | 緯度 |
 | `longitude` | 経度 |
+| `address` | 住所 (Geocoded Location) |
 
 **補足**
 
