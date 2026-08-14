@@ -26,8 +26,8 @@ class HassToBigQuery(hass.Hass):
         eneity_ids = os.getenv("TARGET_ENTITY_IDS")
         self.entity_list = [e.strip() for e in eneity_ids.split(",") if e.strip()]
 
-        # 毎日深夜 3:00 に実行
-        self.run_daily(self.daily_batch, datetime(2026,1,1,3,0,0).time())
+        # 毎日深夜 2:00 に実行
+        self.run_daily(self.daily_batch, datetime(2026,1,1,2,0,0).time())
 
         # テスト用: 起動5秒後に実行
         self.run_in(self.daily_batch, 5)

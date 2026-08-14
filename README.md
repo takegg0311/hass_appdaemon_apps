@@ -56,7 +56,7 @@ Home Assistant の entity 履歴から位置情報（`attributes.location`）を
 
 **動作概要**
 
-- 毎日 3:00（JST）に日次バッチを実行
+- 毎日 2:00（JST）に日次バッチを実行
 - 起動から 5 秒後にも 1 回実行（動作確認用）
 - 対象: `TARGET_ENTITY_IDS` に列挙した entity
 - 期間: 直近 7 日分（開始日 00:00:00 から現在まで）
